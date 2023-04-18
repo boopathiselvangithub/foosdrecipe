@@ -38,7 +38,7 @@ class RecipeCard extends Component {
          <Avatar
          sx={{ bgcolor: green[500],mx:1}}
          >
-          {cook_time_minutes?cook_time_minutes:25}
+          {cook_time_minutes?cook_time_minutes:15}
          </Avatar>
          <Typography fontFamily='inherit' variant='h6'>Minutes</Typography>
          </Box>

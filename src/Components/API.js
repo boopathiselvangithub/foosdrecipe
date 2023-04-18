@@ -7,7 +7,7 @@ const API_RecipeList= async(url,params)=>{
       url    :  url,
       params :  params,
       headers:  {
-        'X-RapidAPI-Key': '13f0645f06msh69269a33678a161p1abe39jsn1441abf140bd',
+        'X-RapidAPI-Key' : '4d63950d76msh72cccfc57033be4p13aefbjsn4d9b094ca746',
         'X-RapidAPI-Host': 'tasty.p.rapidapi.com'
       }
     }
