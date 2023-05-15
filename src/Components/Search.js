@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { TextField,Button,Grid, CircularProgress,Box} from '@mui/material';
+import { TextField,Button,Grid, CircularProgress,Box, Typography} from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
 import API_RecipeList from './API';
 import RecipeCard from './RecipeCard';
+import PageNotFound from './PageNotFound';
 
 const SearchFieldTheme=styled('div')(({theme})=>({
    [theme.breakpoints.down('md')]:{
@@ -21,8 +22,8 @@ const SearchFieldTheme=styled('div')(({theme})=>({
 
 const ButtonTheme=styled('div')(({theme})=>({
    borderRadius :'20px',
-
 }))
+
 class Search extends Component {
   constructor(props) {
     super(props)
@@ -30,9 +31,9 @@ class Search extends Component {
     this.state = {
        recipeSearch :null,
        loader       :false,
-       searchText   :null
+       searchText   :null,
+       inputText    :null
     }
-    this.inputRef=React.createRef()
   }
 
   searchFunction=async()=>{
@@ -48,15 +49,21 @@ class Search extends Component {
  }
   
   updateSearchText=()=>{
+    console.log(this.state.inputText)
+    if(this.state.inputText){
      this.setState({
-      searchText  : this.inputRef.current.value,
+      searchText  : this.state.inputText,
       loader      :true
      },this.searchFunction)
+    }
   }
 
   render() {
-    const {recipeSearch,loader,searchText}=this.state
+    const {recipeSearch,loader}=this.state
     console.log(recipeSearch)
+    if((recipeSearch && !recipeSearch.length)){
+      return <PageNotFound/>
+    }
     return (
       <div>
      <SearchFieldTheme>
@@ -64,7 +71,7 @@ class Search extends Component {
           id="outlined-multiline-flexible"
           label="Search"
           placeholder='Enter something'
-          inputRef={this.inputRef}
+          onChange={(e)=>this.setState({inputText:e.target.value})}
           sx={{width:'100%', 'fieldset':{borderRadius:'40px',border:'2px solid #282A3A'}}}
           InputProps={{
             startAdornment: (
@@ -80,6 +87,7 @@ class Search extends Component {
          Enter</Button>
         </ButtonTheme>
       </SearchFieldTheme>
+
       {
         loader && 
         <Box py={10} sx={{display:'flex',justifyContent:'center'}}>
@@ -93,11 +101,11 @@ class Search extends Component {
          {
            recipeSearch.map((item)=>{
               return( 
-              <>
-                <Grid item xs={11}  md={5} lg={3.6} mx='auto' >
+              <React.Fragment key={item.id}>
+                <Grid key={item.id} item xs={11}  md={5} lg={3.6} mx='auto' >
                 <RecipeCard item={item}/>
                 </Grid>
-              </>
+              </React.Fragment>
               )
            })
          }
