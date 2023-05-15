@@ -102,14 +102,14 @@ class Home extends Component {
   filterBasedOnCondition=()=>{
     const {filter,recipeList}=this.state
     let filterArray = this.copyOfRecipe
-    console.log(recipeList,'fi')
+    
     switch(filter){
       case 'under_20_minutes':
         filterArray = filterArray.filter(recipe => recipe.cook_time_minutes <20 ) 
       break
       case 'low_price':
         filterArray = filterArray.filter(recipe => recipe.price?.total<1500 )
-        console.log(filterArray,"fa")
+        
       break
       case 'high_price':
         filterArray = recipeList.filter(recipe => recipe.price?.total>=1500 )
