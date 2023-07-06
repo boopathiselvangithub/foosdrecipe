@@ -118,21 +118,25 @@ class Home extends Component {
     let filterArray = this.copyOfRecipe;
 
     switch (filter) {
+
       case "under_20_minutes":
         filterArray = filterArray.filter(
           (recipe) => recipe.cook_time_minutes < 20
         );
         break;
+
       case "low_price":
         filterArray = filterArray.filter(
           (recipe) => recipe.price?.total < 1500
         );
         break;
+
       case "high_price":
         filterArray = filterArray.filter(
           (recipe) => recipe.price?.total >= 1500
         );
         break;
+        
       default :
         filterArray =this.copyOfRecipe
         break
